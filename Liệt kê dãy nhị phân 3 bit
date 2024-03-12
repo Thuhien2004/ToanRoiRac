@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Liệt kê dãy nhị phân</title>
+</head>
+<body>
+
+<h2>Dãy nhị phân có độ dài là 3:</h2>
+
+<div id="output"></div>
+
+<script>
+// Hàm đệ quy để tạo và liệt kê tất cả các dãy nhị phân có độ dài là 3
+function generateBinaryStrings(prefix, length) {
+    // Nếu độ dài đã đủ, hiển thị dãy nhị phân
+    if (prefix.length === length) {
+        document.getElementById("output").innerHTML += prefix + "<br>";
+    } else {
+        // Nếu chưa đủ độ dài, tiếp tục đệ quy để thêm bit 0 và 1 vào cuối dãy
+        generateBinaryStrings(prefix + "0", length);
+        generateBinaryStrings(prefix + "1", length);
+    }
+}
+
+// Gọi hàm để bắt đầu tạo và liệt kê dãy nhị phân có độ dài là 3
+generateBinaryStrings("", 3);
+</script>
+
+</body>
+</html>
