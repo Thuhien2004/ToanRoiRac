@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bài toán đếm</title>
+</head>
+<body>
+
+<h2>Bài toán đếm:</h2>
+<p>Một nhóm gồm có 8 nam, 6 nữ để chọn ra 4 người mà có ít nhất 2 nam, ta có thể chia ra các nhóm:</p>
+<p>- Nhóm 1: 2 nam, 2 nữ</p>
+<p>- Nhóm 2: 3 nam, 1 nữ</p>
+<p>- Nhóm 3: 4 nam, 0 nữ</p>
+
+<button id="button1">Cách 1</button>
+<button id="button2">Cách 2</button>
+<button id="button3">Cách 3</button>
+<button id="totalButton">Tổng</button>
+
+<div id="result"></div>
+<div id="total"></div>
+
+<script>
+// Hàm tính tổ hợp C(n, k)
+function combination(n, k) {
+    // Tính giai thừa của một số nguyên dương
+    function factorial(num) {
+        if (num === 0 || num === 1) {
+            return 1;
+        } else {
+            return num * factorial(num - 1);
+        }
+    }
+
+    // Tính tổ hợp
+    return factorial(n) / (factorial(k) * factorial(n - k));
+}
+
+// Lấy ra các nút bằng ID và thêm sự kiện click
+document.getElementById("button1").addEventListener("click", function() {
+    let result = combination(8, 2) * combination(6, 2);
+    document.getElementById("result").innerText = "Cách 1: " + result;
+});
+
+document.getElementById("button2").addEventListener("click", function() {
+    let result = combination(8, 3) * combination(6, 1);
+    document.getElementById("result").innerText = "Cách 2: " + result;
+});
+
+document.getElementById("button3").addEventListener("click", function() {
+    let result = combination(8, 4);
+    document.getElementById("result").innerText = "Cách 3: " + result;
+});
+
+document.getElementById("totalButton").addEventListener("click", function() {
+    document.getElementById("total").innerText = "Tổng: 826";
+});
+</script>
+
+</body>
+</html>
