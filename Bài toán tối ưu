@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Giải Bài Toán Lập Lịch</title>
+</head>
+<body>
+
+<h2>Giải Bài Toán Lập Lịch</h2>
+
+<div>
+    <label for="numDetails">Số lượng chi tiết (n):</label>
+    <input type="number" id="numDetails">
+</div>
+
+<div>
+    <label for="numMachines">Số lượng máy (m):</label>
+    <input type="number" id="numMachines">
+</div>
+
+<div id="detailsTimes">
+    <!-- Các trường nhập thời gian của các chi tiết sẽ được thêm vào đây động dụng -->
+</div>
+
+<button onclick="solveSchedulingProblem()">Giải</button>
+
+<div id="solution"></div>
+
+<script>
+function solveSchedulingProblem() {
+    const numDetails = parseInt(document.getElementById("numDetails").value);
+    const numMachines = parseInt(document.getElementById("numMachines").value);
+    const detailTimes = [];
+
+    for (let i = 0; i < numDetails; i++) {
+        const detail = [];
+        for (let j = 0; j < numMachines; j++) {
+            detail.push(parseInt(prompt(`Nhập thời gian gia công chi tiết ${i+1} trên máy ${j+1}:`)));
+        }
+        detailTimes.push(detail);
+    }
+
+    const schedule = findOptimalSchedule(detailTimes);
+    displaySchedule(schedule);
+}
+
+function findOptimalSchedule(detailTimes) {
+    const numDetails = detailTimes.length;
+    const numMachines = detailTimes[0].length;
+    const completionTimes = Array(numDetails).fill(0);
+
+    for (let j = 0; j < numMachines; j++) {
+        let machineFinishTime = 0;
+        for (let i = 0; i < numDetails; i++) {
+            machineFinishTime = Math.max(machineFinishTime, completionTimes[i]) + detailTimes[i][j];
+            completionTimes[i] = machineFinishTime;
+        }
+    }
+
+    return completionTimes;
+}
+
+function displaySchedule(schedule) {
+    const solutionDiv = document.getElementById("solution");
+    solutionDiv.innerHTML = "<h3>Lịch Gia Công Tối Ưu:</h3>";
+
+    schedule.forEach((time, index) => {
+        solutionDiv.innerHTML += `Chi tiết ${index + 1}: Hoàn thành vào thời gian ${time}<br>`;
+    });
+}
+</script>
+
+</body>
+</html>
